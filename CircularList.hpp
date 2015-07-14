@@ -16,8 +16,8 @@ public:
 	typedef typename CLImpl<T>::difference_type	difference_type;
 	typedef typename CLImpl<T>::iterator		iterator;
 	typedef typename CLImpl<T>::const_iterator	const_iterator;
-	typedef typename CircularIterator<T>		circular_iterator;
-	typedef typename CircularIterator<const T>	const_circular_iterator;
+	typedef CircularIterator<T>		circular_iterator;
+	typedef CircularIterator<const T>	const_circular_iterator;
 
 	CircularList();
 	CircularList( size_type n, const_reference value = T() );
@@ -276,7 +276,7 @@ void CircularList<T>::remove( Predicate pred )
 template< typename T >
 void CircularList<T>::unique()
 {
-	if( size_ > 1 ) {
+	if( impl_.size_ > 1 ) {
 		iterator iter = begin();
 		++iter;
 		while( iter != end() ) {
@@ -295,7 +295,7 @@ template< typename T >
 template< typename BinaryPredicate >
 void CircularList<T>::unique( BinaryPredicate binary_pred )
 {
-	if( size_ > 1 ) {
+	if( impl_.size_ > 1 ) {
 		iterator iter = begin();
 		++iter;
 		while( iter != end() ) {

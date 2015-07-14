@@ -18,6 +18,8 @@ template< typename T >
 class Iterator : 
 	public std::iterator< std::bidirectional_iterator_tag, T, std::size_t, T*, T& > {
 public:
+    using typename std::iterator<std::bidirectional_iterator_tag, T, std::size_t, T*, T&>::reference;
+    using typename std::iterator<std::bidirectional_iterator_tag, T, std::size_t, T*, T&>::pointer;
 	Iterator( );
 	Iterator( const Iterator<T>& );
 
@@ -85,7 +87,7 @@ typename Iterator<T>::pointer Iterator<T>::operator->()
 }
 
 template< typename T >
-typename Iterator<T>& Iterator<T>::operator++()
+Iterator<T>& Iterator<T>::operator++()
 {
 	node_ = node_->next;
 	return (*this);

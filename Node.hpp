@@ -12,6 +12,7 @@ public:
 	Node<T>*	next;
 	T*			value;
 private:
+    /* copy between nodes is not allowed */
 	Node( const Node<T>& );
 	Node<T>& operator=( const Node<T>& );
 };

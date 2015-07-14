@@ -5,6 +5,7 @@
 #include "Node.hpp"
 #include <cstddef>
 #include <algorithm>
+#include <iostream>
 
 template< typename T >
 class NodeSentry {
@@ -43,6 +44,11 @@ NodeSentry<T>::~NodeSentry()
 	}
 }
 
+/*Structur:
+ * When the list is not empty, end_->next == begin_, begin_->prev == NULL.
+ * end_->prev is the tail of the list. begin_ is the first element of the list.
+ * I don't quite like this design since: end_->next == begin while begin_->prev == NULL.
+ */
 template< typename T >
 class CLImpl {
 public:
@@ -153,6 +159,7 @@ typename CLImpl<T>::iterator CLImpl<T>::insert( typename CLImpl<T>::iterator pos
 	Node<T>* before = after->prev;
 	Node<T>* temp = new Node<T>( before, after, value );
 	after->prev = temp;
+    /* if insert before begin, then update begin node */
 	if( after == begin_ )
 		begin_ = temp;
 	if( !before ) {

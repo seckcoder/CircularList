@@ -13,6 +13,8 @@ template< typename T >
 class CircularIterator : 
 	public std::iterator< std::bidirectional_iterator_tag, T, std::size_t, T*, T& > {
 public:
+    using typename std::iterator<std::bidirectional_iterator_tag, T, std::size_t, T*, T&>::reference;
+    using typename std::iterator<std::bidirectional_iterator_tag, T, std::size_t, T*, T&>::pointer;
 	CircularIterator( );
 	CircularIterator( const CircularIterator<T>& );
 	CircularIterator( Iterator<T> other );
@@ -89,7 +91,7 @@ typename CircularIterator<T>::pointer CircularIterator<T>::operator->()
 }
 
 template< typename T >
-typename CircularIterator<T>& CircularIterator<T>::operator++()
+CircularIterator<T>& CircularIterator<T>::operator++()
 {
 	node_ = node_->next;
 	if( ! node_->value )
