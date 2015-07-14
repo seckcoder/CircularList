@@ -31,6 +31,7 @@ NodeSentry<T>::~NodeSentry()
 {
 	while( ptr_ ) {
 		if( ! ptr_->value ) {
+            /* At the tail of the list */
 			delete ptr_;
 			ptr_ = 0;
 		}
@@ -84,6 +85,10 @@ template< typename T >
 CLImpl<T>::CLImpl( const CLImpl<T>& other ) : begin_( new Node<T>(0, 0) ), end_( 0 ), size_( 0 )
 {
 	end_ = begin_;
+    /* NodeSentry is used for exception safety.
+     * For example, what if an exception is throwed during the allocation?
+     * To avoid memory leaks, we need to delete the allocated memory
+     */
 	NodeSentry<T> sentry( begin_ );
 	Node<T>* temp = begin_;
 	Node<T>* pOther = other.begin_;
@@ -135,6 +140,9 @@ CLImpl<T>::CLImpl( InputIterator first, InputIterator last ) : begin_( new Node<
 template< typename T >
 CLImpl<T>::~CLImpl()
 {
+    /* A smart implementation. The destructor of NodeSentry will
+     * automatically release the memory
+     */
 	NodeSentry<T> sentry( begin_ );
 }
 

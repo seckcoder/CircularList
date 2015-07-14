@@ -16,6 +16,9 @@ private:
 	Node<T>& operator=( const Node<T>& );
 };
 
+/* I don't quite like this part since for every node we will allocate a new 
+ * block of memory for value. Are there any better methods?
+ */
 template< typename T >
 Node<T>::Node( Node<T>* p, Node<T>* n, const T& v ) : prev(p), next(n), value(new T(v) )
 {}
